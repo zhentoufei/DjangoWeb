@@ -147,3 +147,6 @@ EMAIL_HOST_USER = "zhentoufei@sina.com"
 EMAIL_HOST_PASSWORD = "zhanglei123"
 EMAIL_USE_TLS = False
 EMAIL_FROM = "zhentoufei@sina.com"
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
