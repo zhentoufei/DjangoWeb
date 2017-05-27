@@ -1,0 +1,5 @@
+# -*- coding: utf-8 -*-
+__author__ = 'Mr.Finger'
+__date__ = '2017/5/27 20:49'
+
+from django.conf.urls import url, include

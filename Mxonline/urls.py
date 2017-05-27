@@ -18,10 +18,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.views.generic import TemplateView
 import xadmin
-
+from django.views.static import serve
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
 from organizations.views import OrgView
-
+from Mxonline.settings import MEDIA_ROOT
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url('^$', TemplateView.as_view(template_name="index.html"), name="index"),
@@ -34,5 +34,8 @@ urlpatterns = [
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
 
     #课程机构首页
-    url(r"^org_list/$", OrgView.as_view(), name="org_list")
+    url(r"^org_list/$", OrgView.as_view(), name="org_list"),
+    url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT})
+
+
 ]
