@@ -32,14 +32,21 @@ urlpatterns = [
     url(r'^forget/$', ForgetPwdView.as_view(), name="forget_pwd"),
     url(r'^reset/(?P<active_code>.*)/$', ResetView.as_view(), name="reset_pwd"),
     url(r'^modify_pwd/$', ModifyPwdView.as_view(), name="modify_pwd"),
-
-    #课程机构首页
-    url(r"^org_list/$", OrgView.as_view(), name="org_list"),
+    #
+    # #课程机构首页
+    # url(r"^org_list/$", OrgView.as_view(), name="org_list"),
 
     #课程机构url配置
     url(r'^org/', include('organizations.urls', namespace='org')),
+
+    # 课程相关url配置
+    url(r'^course/', include('courses.urls', namespace='course')),
 
     url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT})
 
 
 ]
+
+
+#全局404页面配置
+handler404 = 'users.views.page_not_found'
