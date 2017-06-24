@@ -2,10 +2,14 @@
 import xadmin
 from xadmin import views
 
-from .models import EmailVerifyRecord, Banner
+from .models import EmailVerifyRecord, Banner, UserProfile
+from xadmin.plugins.auth import UserAdmin
 __author__ = 'bobby'
 __date__ = '2017/05/02 11:07'
 
+
+class UserProfileAdmin(UserAdmin):
+    pass
 
 class BaseSetting(object):
     enable_themes = True
@@ -32,5 +36,6 @@ class BannerAdmin(object):
 
 xadmin.site.register(EmailVerifyRecord, EmailVerifyRecordAdmin)
 xadmin.site.register(Banner, BannerAdmin)
+# xadmin.site.register(UserProfile, UserProfileAdmin)
 xadmin.site.register(views.BaseAdminView, BaseSetting)
 xadmin.site.register(views.CommAdminView, GlobalSettings)
