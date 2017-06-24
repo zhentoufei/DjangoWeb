@@ -23,7 +23,7 @@ class CustomBackend(ModelBackend):
         except Exception as e:
             return None
 
-
+#用户的激活
 class ActiveUserView(View):
     def get(self, request, active_code):
         all_records = EmailVerifyRecord.objects.filter(code=active_code)
@@ -128,3 +128,11 @@ class ModifyPwdView(View):
         else:
             email = request.POST.get("email", "")
             return render(request, "password_reset.html", {"email": email, "modify_form": modify_form})
+
+
+
+def page_not_found(request):
+     from django.shortcuts import render_to_response
+     response = render_to_response('404.html',{})
+     response.status_code = 404
+     return response
