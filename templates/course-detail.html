@@ -49,7 +49,8 @@
                                     {% for userc_course in course.get_learn_users %}
 
                                         <span class="pic"><img width="40" height="40"
-                                                               src="{{ MEDIA_URL }}{{ userc_course.user.image }}"/></span>
+                                                               src="
+                                                                       {{ MEDIA_URL }}{{ userc_course.user.image }}"/></span>
                                     {% endfor %}
                                 </li>
                             </ul>
@@ -57,7 +58,8 @@
                                 <div class="btn colectgroupbtn" id="jsLeftBtn">
                                     {% if has_fav_course %}已收藏{% else %}收藏{% endif %}
                                 </div>
-                                <div class="buy btn"><a style="color: white" href="{% url 'course:course_info' course.id%}">开始学习</a></div>
+                                <div class="buy btn"><a style="color: white"
+                                                        href="{% url 'course:course_info' course.id %}">开始学习</a></div>
                             </div>
                         </div>
                         <div class="group-share-box">
@@ -119,11 +121,13 @@
                 <div class="left layout">
                     <div class="head">
                         <ul class="tab_header">
-                            <li class="active">课程详情</li>
+                            <li class="active">课程=======详情</li>
                         </ul>
                     </div>
                     <div class="tab_cont tab_cont1">
-                        {{ course.detail }}
+                        {% autoescape on %}
+                            {{ course.detail | safe }}
+                        {% endautoescape %}
                     </div>
                     <div class="tab_cont tab_cont2">
                         <div class="comment">
