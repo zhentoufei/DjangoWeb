@@ -3,7 +3,10 @@ from __future__ import unicode_literals
 from datetime import datetime
 
 from django.db import models
-from organizations.models import CourseOrg,Teacher
+from organizations.models import CourseOrg, Teacher
+from DjangoUeditor.models import UEditorField
+
+
 # Create your models here.
 
 
@@ -11,7 +14,10 @@ class Course(models.Model):
     course_org = models.ForeignKey(CourseOrg, verbose_name=u"课程机构", null=True, blank=True)
     name = models.CharField(max_length=50, verbose_name=u"课程名称")
     desc = models.CharField(max_length=300, verbose_name=u"课程描述")
-    detail = models.TextField(verbose_name=u"课程详情")
+    detail = UEditorField(verbose_name=u'课程详情', width=900, height=500, imagePath="courses/ueditor/",
+                          filePath="courses/ueditor/",blank=True)
+
+    is_banner = models.BooleanField(default=False, verbose_name=u'是否轮播')
     degree = models.CharField(choices=(("cj", u"初级"), ("zj", u"中级"), ("gj", u"高级")), max_length=2, verbose_name=u"难度")
     teacher = models.ForeignKey(Teacher, verbose_name=u'授课讲师', null=True, blank=True)
     learn_times = models.IntegerField(default=0, verbose_name=u"学习时长(分钟)")
@@ -32,16 +38,25 @@ class Course(models.Model):
     def __unicode__(self):
         return self.name
 
-    #获取课程章节数目
+    # 获取课程章节数目
     def get_zj_nums(self):
         return self.lesson_set.all().count()
+
+    get_zj_nums.short_description = u'章节数'
 
     def get_learn_users(self):
         return self.usercourse_set.all()[:5]
 
     def get_course_lesson(self):
-        #获取课程所有章节
+        # 获取课程所有章节
         return self.lesson_set.all()
+
+    def go_to(self):
+        from django.utils.safestring import mark_safe
+        return mark_safe("<a href='http://www.baidu.com'>跳转</>")
+
+    go_to.short_description = u'跳转'
+
 
 class Lesson(models.Model):
     course = models.ForeignKey(Course, verbose_name=u"课程")
@@ -54,11 +69,12 @@ class Lesson(models.Model):
         verbose_name_plural = verbose_name
 
     def get_lesson_video(self):
-        #获取章节视频
+        # 获取章节视频
         return self.video_set.all()
 
     def __unicode__(self):
         return self.name
+
 
 class Video(models.Model):
     lesson = models.ForeignKey(Lesson, verbose_name=u"章节")
@@ -84,5 +100,3 @@ class CourseResource(models.Model):
     class Meta:
         verbose_name = u"课程资源"
         verbose_name_plural = verbose_name
-
-

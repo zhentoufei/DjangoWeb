@@ -22,6 +22,7 @@ from django.views.static import serve
 from users.views import LoginView, RegisterView, ActiveUserView, ForgetPwdView, ResetView, ModifyPwdView
 from organizations.views import OrgView
 from Mxonline.settings import MEDIA_ROOT
+
 urlpatterns = [
     url(r'^xadmin/', xadmin.site.urls),
     url('^$', TemplateView.as_view(template_name="index.html"), name="index"),
@@ -36,17 +37,18 @@ urlpatterns = [
     # #课程机构首页
     # url(r"^org_list/$", OrgView.as_view(), name="org_list"),
 
-    #课程机构url配置
+    # 课程机构url配置
     url(r'^org/', include('organizations.urls', namespace='org')),
 
     # 课程相关url配置
     url(r'^course/', include('courses.urls', namespace='course')),
 
-    url(r'^media/(?P<path>.*)$', serve, {"document_root":MEDIA_ROOT})
+    url(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
 
+    # 富文本框的相关的url
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
 
 ]
 
-
-#全局404页面配置
+# 全局404页面配置
 handler404 = 'users.views.page_not_found'

@@ -50,9 +50,22 @@ INSTALLED_APPS = [
     'crispy_forms',
     'captcha',
     'pure_pagination',
+    'DjangoUeditor',
 
 ]
 AUTH_USER_MODEL = "users.UserProfile"
+
+
+UEDITOR_SETTINGS={
+    "config":{
+      'toolbars':[['source','undo','redo', 'bold','italic','underline','forecolor','backcolor',
+                   'superscript','subscript','justifyleft','justifyright','justifycenter','insertorderdlist',
+                    'insertunorderedlist','blockquote'],
+                  ['insertcode','paragraph']]
+
+    },
+}
+
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
