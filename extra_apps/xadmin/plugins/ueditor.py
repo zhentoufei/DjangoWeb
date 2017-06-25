@@ -44,7 +44,7 @@ class UeditorPlugin(BaseAdminPlugin):
         nodes.append(js)
 
 
-xadmin.site.register_plugin(UeditorPlugin, DetailAdminView)
+# xadmin.site.register_plugin(UeditorPlugin, DetailAdminView)
 xadmin.site.register_plugin(UeditorPlugin, UpdateAdminView)# ueditor注册到更新页
 xadmin.site.register_plugin(UeditorPlugin, CreateAdminView)# ueditor注册到新增页
-xadmin.site.register_plugin(UeditorPlugin, ModelFormAdminView)
+# xadmin.site.register_plugin(UeditorPlugin, ModelFormAdminView)
